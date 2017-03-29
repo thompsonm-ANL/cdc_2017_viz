@@ -124,16 +124,16 @@ td {
 <script src="js/util.js"> </script>
 <script>
 window.setTimeout(function() {
-for (i=1; i<16; i++) {
-  teamGraph(i);
-}
-}, 500);
+  for (i=1; i<16; i++) {
+    teamGraph(i);
+  }
+}, 1000);
 window.setInterval(function() {
   for (i=1; i < 16; i++) {
     updateGraph(i);
   };
 
-}, 1000);
+}, 3000);
 </script>
 <!-- <script src="js/jquerycanvas.js" ></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.7.0/canvasjs.min.js"></script>

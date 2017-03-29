@@ -9,21 +9,21 @@ function teamGraph(team_num) {
                     {x: 2, y: parseInt(d.attacker)},
                     {x: 3, y: parseInt(d.defender)})
       }
-      exploder(team_num, d.attacker);
+
     });
 
     var options = {
       axisX: {
         tickLength: 0,
         lineThickness: 0,
-        labelFontSize: 0,
+        labelFontSize: 1,
 
       },
       axisY: {
         maximum: 1100,
         tickLength: 0,
         lineThickness: 0,
-        labelFontSize: 0,
+        labelFontSize: 1,
       },
       width:200,
       height:50,
@@ -49,7 +49,7 @@ function updateGraph(team_num) {
                       {x: 2, y: parseInt(d.attacker)},
                       {x: 3, y: parseInt(d.defender)})
         }
-        exploder(team_num, d.attacker);
+
       });
       divid = "#g"+team_num;
       window.graphs[team_num].options.data.dataPoints = points;
@@ -61,10 +61,11 @@ function updateGraph(team_num) {
 }
 
 function exploder(team_num, attacker) {
-      var divid = "td"+team_num+" .explode";
-  if (attacker > 900) {
+  var divid = "#td"+team_num+" .explode";
+  if (parseInt(attacker) > 900) {
+    console.log("exploding team "+team_num+" at "+attacker+" via "+divid);
     $(divid).show();
-  } else {
+  } else if (parseInt(attacker) <= 900) {
     $(divid).hide();
   }
 }
