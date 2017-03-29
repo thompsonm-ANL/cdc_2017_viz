@@ -1,5 +1,5 @@
 prefix = "10.10.20."
-red_range = [1, 100]
+red_range = [1, 50]
 green_range = [100, 250]
 
 def getNetwork(team_num):

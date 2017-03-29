@@ -28,8 +28,10 @@ class SnifferService(TsharkService):
         ts.slotPacket(packet)
         with open (filename, "wb") as f:
             wr = csv.writer(f, quoting=csv.QUOTE_MINIMAL)
+            wr.writerow(["num", "name", "network", "attacker", "user", "defender"])
             for t in ts.teams:
                 l = []
+                l.append(t.num)
                 l.append(t.name)
                 l.append(t.network)
                 l.extend(t.state.getCounts())
