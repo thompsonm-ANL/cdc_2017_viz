@@ -9,16 +9,44 @@ setTimeout( function() {
 }, 6000);
 
 setInterval(function() {
-
+  updateLinks();
 }, 10000);
 
 function id() {
+    window.l = new Map();
     $("line").each(function(index) {
         //$(this).css("stroke", colors[index*22]);
-        $(this).attr("id", "l"+index);
+        var ourId = "l"+index;
+        $(this).attr("id", ourId);
+        window.l.set(window.lines[index], ourId)
     })
+    window.n = new Map()
     $(".node").each(function(index) {
         //$(this).css("fill", colors[index*13]);
-        $(this).attr("id", "n"+index);
+        var ourId = "n"+index
+        $(this).attr("id", ourId);
+        window.n.set(window.nodes[index], ourId)
     })
  }
+
+function updateLinks() {
+  $.getJSON("/data", function() {
+    data.forEach(function(d) {
+      var thresholds = [200,400,600,800];
+      if (d.attacker < thresholds[0]) {
+        $("#"+window.l.get(d.name)).css("stroke-width", "1");
+      } else if (d.attacker >= thresholds[0] && d.attacker < thresholds[1]) {
+        $("#"+window.l.get(d.name)).css("stroke-width", "2");
+      } else if (d.attacker >= thresholds[1] && d.attacker < thresholds[2]) {
+        $("#"+window.l.get(d.name)).css("stroke-width", "3");
+        $("#"+window.l.get(d.name)).css("stroke", "red");
+      } else if (d.attacker >= thresholds[2] && d.attacker < thresholds[3]) {
+        $("#"+window.l.get(d.name)).css("stroke-width", "3");
+        $("#"+window.l.get(d.name)).css("stroke", "red");
+      } else if (d.attacker >= thresholds[4]) {
+        $("#"+window.l.get(d.name)).css("stroke-width", "5");
+        $("#"+window.l.get(d.name)).css("stroke", "red");
+      }
+    })
+  })
+}
