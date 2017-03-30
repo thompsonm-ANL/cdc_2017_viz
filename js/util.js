@@ -1,6 +1,6 @@
 function teamGraph(team_num) {
   window.graphs = new Array();
-  d3.csv("state.csv", function(error, data) {
+  $.getJSON("/data", function(data) {
 
     points = []
     data.forEach(function(d) {
