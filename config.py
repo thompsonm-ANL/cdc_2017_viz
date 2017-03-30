@@ -1,5 +1,7 @@
+from collections import OrderedDict
+
 prefix = "10.10.20."
-red_range = [228, 254]
+red_range = [10, 254]
 green_range = [200, 228]
 
 cdc = [
@@ -49,3 +51,11 @@ def is_green(last_oct):
 teamnets = []
 for i in range(1, 16):
   teamnets.append(getNetwork(i))
+
+line_ids = OrderedDict(
+
+)
+
+node_ids = OrderdDict(
+
+)

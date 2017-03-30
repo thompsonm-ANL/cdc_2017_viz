@@ -30,7 +30,7 @@ function id() {
  }
 
 function updateLinks() {
-  $.getJSON("/data", function() {
+  $.getJSON("/data", function(data) {
     data.forEach(function(d) {
       var thresholds = [200,400,600,800];
       if (d.attacker < thresholds[0]) {
