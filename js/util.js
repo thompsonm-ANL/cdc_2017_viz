@@ -1,4 +1,7 @@
+
+
 function teamGraph(team_num) {
+  CanvasJS.addColorSet("teamColors", ["#2e8b57", "red", "steelblue"])
   window.graphs = new Array();
   $.getJSON("/data", function(data) {
 
@@ -13,6 +16,7 @@ function teamGraph(team_num) {
     });
 
     var options = {
+      colorSet: "teamColors",
       axisX: {
         tickLength: 0,
         lineThickness: 0,
@@ -41,7 +45,7 @@ function teamGraph(team_num) {
 
 function updateGraph(team_num) {
   try {
-    d3.csv("state.csv", function(error, data) {
+  $.getJSON("/data", function(data) {
       points = []
       data.forEach(function(d) {
         if (d.num == team_num) {

@@ -1,6 +1,6 @@
 prefix = "10.10.20."
-red_range = [1, 25]
-green_range = [50, 100]
+red_range = [228, 254]
+green_range = [200, 228]
 
 cdc = [
     {"num": 1, "name": "Dakota State"},
