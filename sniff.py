@@ -17,13 +17,6 @@ import networkx as nx
 
 log.startLogging(sys.stdout)
 
-# num_teams = 15
-#
-# ts = teams.Teams()
-# for i in range(1, num_teams+1):
-#     team = teams.Team(i, config.getNetwork(i), "team %d" % i)
-#     ts.addTeam(team)
-
 ts = teams.Teams()
 for t in config.cdc:
     team = teams.Team(t["num"], config.getNetwork(t["num"]), t["name"])
@@ -32,18 +25,7 @@ for t in config.cdc:
 class SnifferService(TsharkService):
     def packetReceived(self, packet):
         """Override the TsharkService method"""
-        #log.msg("Packet received: {}".format(packet))
         ts.slotPacket(packet)
-        # with open (filename, "wb") as f:
-        #     wr = csv.writer(f, quoting=csv.QUOTE_MINIMAL)
-        #     wr.writerow(["num", "name", "network", "attacker", "user", "defender"])
-        #     for t in ts.teams:
-        #         l = []
-        #         l.append(t.num)
-        #         l.append(t.name)
-        #         l.append(t.network)
-        #         l.extend(t.state.getCounts())
-        #         wr.writerow(l)
 
 class Data(Resource):
     isLeaf = True
