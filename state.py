@@ -11,12 +11,20 @@ class State(object):
         self.team_num = team_num
         # this is super inefficient.  But hey, it works!
         self.attackers = []
+        self.fileattack = []
+        self.adattack = []
+        self.hmiattack = []
+        self.mailattack = []
+        self.webattack = []
+        self.esxi = []
         self.defenders = []
         self.users = []
 
     def addPacket(self, packet):
         """We assume that if we got a packet here, its dest
         ip is in the team_num's ip space"""
+        dest_ip = packet['ip'].dst
+        last_dest = dest_ip.split(".")[3]
         last_oct = int(packet['ip'].src.split(".")[3])
         log.msg("ip: %s LASTOCT: %s" % (packet['ip'].src, last_oct))
         if config.is_green(last_oct):
@@ -25,6 +33,19 @@ class State(object):
             self.addAttack()
         else:
             self.addDefend()
+        for description, last in config.blue.items():
+            if description == "File Server" and int(last) == last_dest:
+                self.addFileAttack()
+            elif description == "Active Directory" and int(last) == last_dest:
+                self.addADAttack()
+            elif description == "HMI" and int(last) == last_dest:
+                self.addHMIAttack()
+            elif description == "Mail Server" and int(last) == last_dest:
+                self.addMailAttack()
+            elif description == "Web Server" and int(last) == last_dest:
+                self.addWebAttack()
+            elif description == "ESXi" and int(last) == last_dest:
+                self.addEsxiAttack()
 
     def addAttack(self):
         if len(self.attackers) > self.num_packets:
@@ -32,6 +53,66 @@ class State(object):
         self.attackers.append(True)
         self.defenders.append(False)
         self.users.append(False)
+
+    def addFileAttack(self):
+        if len(self.attackers) > self.num_packets:
+            self.popAll()
+        self.fileattack.append(True)
+        self.adattack.append(False)
+        self.hmiattack.append(False)
+        self.mailattack.append(False)
+        self.webattack.append(False)
+        self.esxi.append(False)
+
+    def addADAttack(self):
+        if len(self.attackers) > self.num_packets:
+            self.popAll()
+        self.fileattack.append(False)
+        self.adattack.append(True)
+        self.hmiattack.append(False)
+        self.mailattack.append(False)
+        self.webattack.append(False)
+        self.esxi.append(False)
+
+    def addHMIAttack(self):
+        if len(self.attackers) > self.num_packets:
+            self.popAll()
+        self.fileattack.append(False)
+        self.adattack.append(False)
+        self.hmiattack.append(True)
+        self.mailattack.append(False)
+        self.webattack.append(False)
+        self.esxi.append(False)
+
+    def addMailAttack(self):
+        if len(self.attackers) > self.num_packets:
+            self.popAll()
+        self.fileattack.append(False)
+        self.adattack.append(False)
+        self.hmiattack.append(False)
+        self.mailattack.append(True)
+        self.webattack.append(False)
+        self.esxi.append(False)
+
+    def addWebAttack(self):
+        if len(self.attackers) > self.num_packets:
+            self.popAll()
+        self.fileattack.append(False)
+        self.adattack.append(False)
+        self.hmiattack.append(False)
+        self.mailattack.append(False)
+        self.webattack.append(True)
+        self.esxi.append(False)
+
+    def addEsxiAttack(self):
+        if len(self.attackers) > self.num_packets:
+            self.popAll()
+        self.fileattack.append(False)
+        self.adattack.append(False)
+        self.hmiattack.append(False)
+        self.mailattack.append(False)
+        self.webattack.append(False)
+        self.esxi.append(True)
 
     def addUser(self):
         if len(self.attackers) > self.num_packets:
@@ -51,6 +132,12 @@ class State(object):
         self.attackers.pop(0)
         self.defenders.pop(0)
         self.users.pop(0)
+        self.fileattack.pop(0)
+        self.adattack.pop(0)
+        self.hmiattack.pop(0)
+        self.mailattack.pop(0)
+        self.webattack.pop(0)
+        self.esxi.pop(0)
 
     def getDefenders(self):
         count = 0
@@ -73,8 +160,35 @@ class State(object):
                 count += 1
         return count
 
+    def getFileAttack(self):
+        return self.getAttrCount(self.fileattack)
+
+    def getADAttack(self):
+        return self.getAttrCount(self.adattack)
+
+    def getHMIAttack(self):
+        return self.getAttrCount(self.hmiattack)
+
+    def getMailAttack(self):
+        return self.getAttrCount(self.mailattack)
+
+    def getWebAttack(self):
+        return self.getAttrCount(self.webattack)
+
+    def getEsxiAttack(self):
+        return self.getAttrCount(self.esxi)
+
+    def getAttrCount(self, attr):
+        count = 0
+        for i in attr:
+            if i:
+                count += 1
+        return count
+
     def getLen(self):
         return len(self.attackers)
 
     def getCounts(self):
-        return self.getAttackers(), self.getUsers(), self.getDefenders()
+        return self.getAttackers(), self.getUsers(), self.getDefenders(),  \
+            self.getFileAttack(), self.getADAttack(), self.getHMIAttack(), \
+            self.getMailAttack(), self.getWebAttack(), self.getEsxiAttack()
