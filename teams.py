@@ -41,13 +41,20 @@ class Teams(object):
     def dump(self):
         l = []
         for team in self.teams:
-            attacker, user, defender = team.state.getCounts()
+            attacker, user, defender, fileattack, adattack, \
+            hmiattack, mailattack, webattack, esxi = team.state.getCounts()
             l.append({
               "num" : team.num,
               "name": team.name,
               "network": team.network,
               "attacker" : attacker,
               "user" : user,
-              "defender": defender
+              "defender": defender,
+              "fileattack": fileattack,
+              "adattack" : adattack,
+              "hmiattack" : hmiattack,
+              "mailattack" : mailattack,
+              "webattack" : webattack,
+              "esxi": esxi
             })
         return l
