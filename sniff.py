@@ -50,6 +50,16 @@ class Data(Resource):
     def render_GET(self, request):
         return json.dumps(ts.dump())
 
+class Lines(Resource):
+    isLeaf = True
+    def render_GET(self, request):
+        return json.dumps(config.line_ids)
+
+class Nodes(Resource):
+    isLeaf = True
+    def render_GET(self, request):
+        return json.dumps(config.node_ids)
+
 class Graph(Resource):
     isLeaf = True
     G = nx.Graph()
@@ -89,6 +99,8 @@ def main():
     print("listening on %s" % iface)
     root = static.File("./")
     root.putChild("data", Data())
+    root.putChild("lines", Lines())
+    root.putChild("nodes", Nodes())
     service = SnifferService([{"name" : iface, "filter": "dst net 10.0.0.0/8"}])
     reactor.listenTCP(80, server.Site(root))
     service.startService()

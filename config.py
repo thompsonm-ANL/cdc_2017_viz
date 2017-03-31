@@ -1,8 +1,8 @@
 from collections import OrderedDict
 
 prefix = "10.10.20."
-red_range = [10, 254]
-green_range = [200, 228]
+red_range = [216, 254]
+green_range = [200, 215]
 
 cdc = [
     {"num": 1, "name": "Dakota State"},
