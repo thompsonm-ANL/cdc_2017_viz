@@ -50,11 +50,11 @@ class Teams(object):
               "attacker" : attacker,
               "user" : user,
               "defender": defender,
-              "fileattack": fileattack,
-              "adattack" : adattack,
-              "hmiattack" : hmiattack,
-              "mailattack" : mailattack,
-              "webattack" : webattack,
-              "esxi": esxi
+              fileattack[0] : fileattack[1],
+              adattack[0] : adattack[1],
+              hmiattack[0] : hmiattack[1],
+              mailattack[0]: mailattack[1],
+              webattack[0] : webattack[1],
+              esxi[0]: esxi[1]
             })
         return l

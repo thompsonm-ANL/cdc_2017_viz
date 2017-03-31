@@ -1,7 +1,7 @@
 from collections import OrderedDict
 
 prefix = "10.10.20."
-red_range = [216, 254]
+red_range = [1, 254]
 green_range = [200, 215]
 
 cdc = [

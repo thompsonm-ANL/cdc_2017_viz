@@ -7,7 +7,7 @@ class State(object):
     network according to what we care about.
     """
     def __init__(self, team_num):
-        self.num_packets = 1000 # arbitrary, should be tweaked
+        self.num_packets = 5000 # arbitrary, should be tweaked
         self.team_num = team_num
         # this is super inefficient.  But hey, it works!
         self.attackers = []
@@ -34,17 +34,17 @@ class State(object):
         else:
             self.addDefend()
         for description, last in config.blue.items():
-            if description == "File Server" and int(last) == last_dest:
+            if description == "File Server" and last == last_dest:
                 self.addFileAttack()
-            elif description == "Active Directory" and int(last) == last_dest:
+            elif description == "Active Directory" and last == last_dest:
                 self.addADAttack()
-            elif description == "HMI" and int(last) == last_dest:
+            elif description == "HMI" and last == last_dest:
                 self.addHMIAttack()
-            elif description == "Mail Server" and int(last) == last_dest:
+            elif description == "Mail Server" and last == last_dest:
                 self.addMailAttack()
-            elif description == "Web Server" and int(last) == last_dest:
+            elif description == "Web Server" and last == last_dest:
                 self.addWebAttack()
-            elif description == "ESXi" and int(last) == last_dest:
+            elif description == "ESXi" and last == last_dest:
                 self.addEsxiAttack()
 
     def addAttack(self):
@@ -161,22 +161,22 @@ class State(object):
         return count
 
     def getFileAttack(self):
-        return self.getAttrCount(self.fileattack)
+        return ("%s.%d" % (config.getPrefix(self.team_num), 30), self.getAttrCount(self.fileattack))
 
     def getADAttack(self):
-        return self.getAttrCount(self.adattack)
+        return ("%s.%d" % (config.getPrefix(self.team_num), 40), self.getAttrCount(self.adattack))
 
     def getHMIAttack(self):
-        return self.getAttrCount(self.hmiattack)
+        return ("%s.%d" % (config.getPrefix(self.team_num), 50), self.getAttrCount(self.hmiattack))
 
     def getMailAttack(self):
-        return self.getAttrCount(self.mailattack)
+        return ("%s.%d" % (config.getPrefix(self.team_num), 60), self.getAttrCount(self.mailattack))
 
     def getWebAttack(self):
-        return self.getAttrCount(self.webattack)
+        return ("%s.%d" % (config.getPrefix(self.team_num), 70), self.getAttrCount(self.webattack))
 
     def getEsxiAttack(self):
-        return self.getAttrCount(self.esxi)
+        return ("%s.%d" % (config.getPrefix(self.team_num), 2), self.getAttrCount(self.esxi))
 
     def getAttrCount(self, attr):
         count = 0

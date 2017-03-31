@@ -28,12 +28,10 @@ for t in config.cdc:
     G[root][t["name"]]['weight'] = random.randint(0, 1000)
 
 
-thresholds = [200,400,600,800]
+thresholds = [1000,2000,3000,4000]
 
 low=[(u,v) for (u,v,d) in G.edges(data=True) if d['weight'] < thresholds[0]]
 lowmed=[(u,v) for (u,v,d) in G.edges(data=True) if d['weight'] in range(thresholds[0], thresholds[1])]
 med=[(u,v) for (u,v,d) in G.edges(data=True) if d['weight'] in range(thresholds[1], thresholds[2])]
 himed=[(u,v) for (u,v,d) in G.edges(data=True) if d['weight'] in range(thresholds[2], thresholds[3])]
 hi=[(u,v) for (u,v,d) in G.edges(data=True) if d['weight'] > thresholds[3]]
-
-

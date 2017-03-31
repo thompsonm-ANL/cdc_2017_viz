@@ -6,11 +6,12 @@ for(col=0x0;col<=0xFFFFFF;col++) {
 }
 setTimeout( function() {
     id();
-}, 6000);
+}, 4000);
 
 setInterval(function() {
   updateLinks();
-}, 10000);
+  updateSmallLinks();
+}, 6000);
 
 function id() {
     window.l = new Map();
@@ -30,7 +31,7 @@ function id() {
 function updateLinks() {
   $.getJSON("/data", function(data) {
     data.forEach(function(d) {
-      var thresholds = [200,400,600,800];
+      var thresholds = [1000,2000,3000,4000];
       $.getJSON("/lines", function(lines) {
         console.log("l "+lines[d.name]);
         if (d.attacker < thresholds[0]) {
@@ -38,14 +39,43 @@ function updateLinks() {
         } else if (d.attacker >= thresholds[0] && d.attacker < thresholds[1]) {
           $("#"+lines[d.name]).css("stroke-width", "2");
         } else if (d.attacker >= thresholds[1] && d.attacker < thresholds[2]) {
-          $("#"+lines[d.name]).css("stroke-width", "3");
+          $("#"+lines[d.name]).css("stroke-width", "4");
           $("#"+lines[d.name]).css("stroke", "red");
         } else if (d.attacker >= thresholds[2] && d.attacker < thresholds[3]) {
-          $("#"+lines[d.name]).css("stroke-width", "3");
-          $("#"+lines[d.name]).css("stroke", "red");
-        } else if (d.attacker >= thresholds[4]) {
           $("#"+lines[d.name]).css("stroke-width", "5");
           $("#"+lines[d.name]).css("stroke", "red");
+        } else if (d.attacker >= thresholds[4]) {
+          $("#"+lines[d.name]).css("stroke-width", "8");
+          $("#"+lines[d.name]).css("stroke", "red");
+        }
+      })
+    })
+  })
+}
+
+function updateSmallLinks() {
+  var thresholds = [1000,2000,3000,4000];
+  $.getJSON("/lines", function(lines) {
+    $.getJSON("/data", function(data) {
+      data.forEach(function(d) {
+        for (var ip in lines) {
+          if (d[ip]) {
+            console.log("ip: "+ip+" id: "+lines[ip]+" val: "+d[ip]);
+            if (d[ip] < thresholds[0]) {
+              $("#"+lines[ip]).css("stroke-width", "1");
+            } else if (d[ip] >= thresholds[0] && d[ip] < thresholds[1]) {
+              $("#"+lines[ip]).css("stroke-width", "2");
+            } else if (d[ip] >= thresholds[1] && d[ip]< thresholds[2]) {
+              $("#"+lines[ip]).css("stroke-width", "3");
+              $("#"+lines[ip]).css("stroke", "red");
+            } else if (d[ip] >= thresholds[2] && d[ip] < thresholds[3]) {
+              $("#"+lines[ip]).css("stroke-width", "3");
+              $("#"+lines[ip]).css("stroke", "red");
+            } else if (d[ip] >= thresholds[4]) {
+              $("#"+lines[ip]).css("stroke-width", "5");
+              $("#"+lines[ip]).css("stroke", "red");
+            }
+          }
         }
       })
     })
