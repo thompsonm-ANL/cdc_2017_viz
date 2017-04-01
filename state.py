@@ -33,23 +33,24 @@ class State(object):
         elif config.is_red(last_oct):
             self.addAttack()
             log.msg("ATTACKER ADDED src ip: %s dst ip: %s" % (packet['ip'].src, packet['ip'].dst))
+            for description, last in config.blue.items():
+                if description == "File Server" and last == last_dest:
+                    self.addFileAttack()
+                elif description == "Active Directory" and last == last_dest:
+                    self.addADAttack()
+                elif description == "HMI" and last == last_dest:
+                    self.addHMIAttack()
+                elif description == "Mail Server" and last == last_dest:
+                    self.addMailAttack()
+                elif description == "Web Server" and last == last_dest:
+                    self.addWebAttack()
+                elif description == "ESXi" and last == last_dest:
+                    self.addEsxiAttack()
         else:
             self.addDefend()
             log.msg("DEFENDER ADDED src ip: %s dst ip: %s" % (packet['ip'].src, packet['ip'].dst))
 
-        for description, last in config.blue.items():
-            if description == "File Server" and last == last_dest:
-                self.addFileAttack()
-            elif description == "Active Directory" and last == last_dest:
-                self.addADAttack()
-            elif description == "HMI" and last == last_dest:
-                self.addHMIAttack()
-            elif description == "Mail Server" and last == last_dest:
-                self.addMailAttack()
-            elif description == "Web Server" and last == last_dest:
-                self.addWebAttack()
-            elif description == "ESXi" and last == last_dest:
-                self.addEsxiAttack()
+
 
     def addAttack(self):
         if len(self.attackers) > self.num_packets:
