@@ -57,7 +57,7 @@ class State(object):
 
     def addFileAttack(self):
         if len(self.fileattack) > self.num_packets:
-            self.popAll()
+            self.popLeaves()
         self.fileattack.append(True)
         self.adattack.append(False)
         self.hmiattack.append(False)
@@ -67,7 +67,7 @@ class State(object):
 
     def addADAttack(self):
         if len(self.fileattack) > self.num_packets:
-            self.popAll()
+            self.popLeaves()
         self.fileattack.append(False)
         self.adattack.append(True)
         self.hmiattack.append(False)
@@ -77,7 +77,7 @@ class State(object):
 
     def addHMIAttack(self):
         if len(self.fileattack) > self.num_packets:
-            self.popAll()
+            self.popLeaves()
         self.fileattack.append(False)
         self.adattack.append(False)
         self.hmiattack.append(True)
@@ -87,7 +87,7 @@ class State(object):
 
     def addMailAttack(self):
         if len(self.fileattack) > self.num_packets:
-            self.popAll()
+            self.popLeaves()
         self.fileattack.append(False)
         self.adattack.append(False)
         self.hmiattack.append(False)
@@ -97,7 +97,7 @@ class State(object):
 
     def addWebAttack(self):
         if len(self.fileattack) > self.num_packets:
-            self.popAll()
+            self.popLeaves()
         self.fileattack.append(False)
         self.adattack.append(False)
         self.hmiattack.append(False)
@@ -107,7 +107,7 @@ class State(object):
 
     def addEsxiAttack(self):
         if len(self.fileattack) > self.num_packets:
-            self.popAll()
+            self.popLeaves()
         self.fileattack.append(False)
         self.adattack.append(False)
         self.hmiattack.append(False)
@@ -133,6 +133,8 @@ class State(object):
         self.attackers.pop(0)
         self.defenders.pop(0)
         self.users.pop(0)
+
+    def popLeaves(self):
         self.fileattack.pop(0)
         self.adattack.pop(0)
         self.hmiattack.pop(0)
