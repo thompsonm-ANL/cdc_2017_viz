@@ -2,6 +2,7 @@ from collections import OrderedDict
 
 prefix = "10.10.20."
 red_range = []
+green_range = []
 for i in range(23, 33):
     red_range.append(i)
 for i in range(190, 201):
@@ -9,7 +10,10 @@ for i in range(190, 201):
 for i in range(216, 255):
     red_range.append(i)
 
-green_range = [200, 215]
+for i in range(200,216)
+    green_range.append(i)
+
+
 
 cdc = [
     {"num": 1, "name": "Dakota State"},
@@ -47,12 +51,14 @@ def getNetwork(team_num):
 def is_red(last_oct):
     if int(last_oct) in red_range:
         return True
-    return False
+    else:
+        return False
 
 def is_green(last_oct):
-    if int(last_oct) in range(green_range[0], green_range[1]):
+    if int(last_oct) in green_range:
         return True
-    return False
+    else:
+        return False
 
 # this is gettable from twisted while we're running
 teamnets = []

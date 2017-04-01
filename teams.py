@@ -14,7 +14,8 @@ class Team(object):
         if (netocts[0] == ipocts[0] and netocts[2] == ipocts[2] and netocts[1] == ipocts[1]):
             log.msg("Team %s packet received" % self.num)
             return True
-        return False
+        else:
+            return False
 
     #self.seen_ips = []
 
@@ -33,7 +34,7 @@ class Teams(object):
             #log.msg("type: %s contains: %s" % (type(packet["ip"].dst), packet["ip"].dst))
             if team.contains(packet["ip"].dst):
                 team.state.addPacket(packet)
-                return True
+                #return True
 
     def dump(self):
         l = []
