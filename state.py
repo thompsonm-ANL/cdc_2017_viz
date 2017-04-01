@@ -29,12 +29,9 @@ class State(object):
         if config.is_green(last_oct):
             self.addUser()
             log.msg("USER ADDED src ip: %s dst ip: %s" % (packet['ip'].src, packet['ip'].dst))
-
         elif config.is_red(last_oct):
-
             self.addAttack()
             log.msg("ATTACKER ADDED src ip: %s dst ip: %s" % (packet['ip'].src, packet['ip'].dst))
-
         else:
             self.addDefend()
             log.msg("DEFENDER ADDED src ip: %s dst ip: %s" % (packet['ip'].src, packet['ip'].dst))
@@ -193,9 +190,6 @@ class State(object):
             if i:
                 count += 1
         return count
-
-    def getLen(self):
-        return len(self.attackers)
 
     def getCounts(self):
         return self.getAttackers(), self.getUsers(), self.getDefenders(),  \
