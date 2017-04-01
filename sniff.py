@@ -25,8 +25,11 @@ for t in config.cdc:
 class SnifferService(TsharkService):
     def packetReceived(self, packet):
         """Override the TsharkService method"""
-        log.msg("src ip: %s dst ip: %s" % (packet['ip'].src, packet['ip'].dst))
-        ts.slotPacket(packet)
+        try:
+          log.msg("src ip: %s dst ip: %s" % (packet['ip'].src, packet['ip'].dst))
+          ts.slotPacket(packet)
+        except:
+            pass
 
 class Data(Resource):
     isLeaf = True
