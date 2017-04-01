@@ -10,7 +10,7 @@ for i in range(190, 201):
 for i in range(216, 255):
     red_range.append(i)
 
-for i in range(200,216)
+for i in range(200,216):
     green_range.append(i)
 
 
