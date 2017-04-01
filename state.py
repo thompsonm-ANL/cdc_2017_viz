@@ -116,14 +116,14 @@ class State(object):
         self.esxi.append(True)
 
     def addUser(self):
-        if len(self.fileattack) > self.num_packets:
+        if len(self.attack) > self.num_packets:
             self.popAll()
         self.attackers.append(False)
         self.defenders.append(False)
         self.users.append(True)
 
     def addDefend(self):
-        if len(self.fileattack) > self.num_packets:
+        if len(self.attack) > self.num_packets:
             self.popAll()
         self.attackers.append(False)
         self.defenders.append(True)
