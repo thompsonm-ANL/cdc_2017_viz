@@ -45,12 +45,12 @@ def getNetwork(team_num):
     return "%s.%s" % (getPrefix(team_num), "0")
 
 def is_red(last_oct):
-    if last_oct in red_range:
+    if int(last_oct) in red_range:
         return True
     return False
 
 def is_green(last_oct):
-    if last_oct in range(green_range[0], green_range[1]):
+    if int(last_oct) in range(green_range[0], green_range[1]):
         return True
     return False
 
