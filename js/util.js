@@ -1,8 +1,8 @@
-
+window.graphs = new Array();
 
 function teamGraph(team_num) {
   CanvasJS.addColorSet("teamColors", ["#2e8b57", "red", "steelblue"])
-  window.graphs = new Array();
+
   $.getJSON("/data", function(data) {
 
     points = []
