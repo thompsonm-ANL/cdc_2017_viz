@@ -11,7 +11,7 @@ class Team(object):
     def contains(self, ip):
         netocts = self.network.split(".")
         ipocts = ip.split(".")
-        if (netocts[0] == ipocts[0] and netocts[2] == ipocts[2]):
+        if (netocts[0] == ipocts[0] and netocts[2] == ipocts[2] and netocts[3] == ipocts[3]):
             return True
         return False
 
