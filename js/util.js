@@ -56,9 +56,11 @@ function updateGraph(team_num) {
 
       });
       divid = "#g"+team_num;
+      console.log('team '+team_num);
       window.graphs[team_num].options.data.dataPoints = points;
       window.graphs[team_num].render();
     });
+    exploder();
   } catch(err) {
     console.log("couldn't read csv");
   }
