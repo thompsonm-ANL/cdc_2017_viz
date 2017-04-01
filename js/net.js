@@ -34,7 +34,7 @@ function id() {
 function updateLinks() {
   $.getJSON("/data", function(data) {
     data.forEach(function(d) {
-      var thresholds = [1000,2000,3000,4000];
+      var thresholds = [1000,1500,2000,2500];
       $.getJSON("/lines", function(lines) {
         console.log("l "+lines[d.name]);
         if (d.attacker < thresholds[0]) {
@@ -57,7 +57,7 @@ function updateLinks() {
 }
 
 function updateSmallLinks() {
-  var thresholds = [1000,2000,3000,4000];
+  var thresholds = [1000,1500,2000,2500];
   $.getJSON("/lines", function(lines) {
     $.getJSON("/data", function(data) {
       data.forEach(function(d) {

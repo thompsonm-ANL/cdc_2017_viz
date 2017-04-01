@@ -7,7 +7,7 @@ class State(object):
     network according to what we care about.
     """
     def __init__(self, team_num):
-        self.num_packets = 5000 # arbitrary, should be tweaked
+        self.num_packets = 3000 # arbitrary, should be tweaked
         self.team_num = team_num
         # this is super inefficient.  But hey, it works!
         self.attackers = []

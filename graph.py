@@ -28,7 +28,7 @@ for t in config.cdc:
     G[root][t["name"]]['weight'] = random.randint(0, 1000)
 
 
-thresholds = [1000,2000,3000,4000]
+thresholds = [1000,1500,2000,2500]
 
 low=[(u,v) for (u,v,d) in G.edges(data=True) if d['weight'] < thresholds[0]]
 lowmed=[(u,v) for (u,v,d) in G.edges(data=True) if d['weight'] in range(thresholds[0], thresholds[1])]

@@ -24,7 +24,7 @@ function teamGraph(team_num) {
 
       },
       axisY: {
-        maximum: 5100,
+        maximum: 3100,
         tickLength: 0,
         lineThickness: 0,
         labelFontSize: 1,
@@ -60,7 +60,7 @@ function updateGraph(team_num) {
       window.graphs[team_num].options.data.dataPoints = points;
       window.graphs[team_num].render();
     });
-    exploder();
+    exploder(team_num, attacker);
   } catch(err) {
     console.log("couldn't read csv");
   }
@@ -68,10 +68,10 @@ function updateGraph(team_num) {
 
 function exploder(team_num, attacker) {
   var divid = "#td"+team_num+" .explode";
-  if (parseInt(attacker) > 4500) {
+  if (parseInt(attacker) > 2500) {
     console.log("exploding team "+team_num+" at "+attacker+" via "+divid);
     $(divid).show();
-  } else if (parseInt(attacker) <= 4500) {
+  } else if (parseInt(attacker) <= 2500) {
     $(divid).hide();
   }
 }
