@@ -26,7 +26,7 @@ class State(object):
         dest_ip = packet['ip'].dst
         last_dest = dest_ip.split(".")[3]
         last_oct = int(packet['ip'].src.split(".")[3])
-        log.msg("ip: %s LASTOCT: %s" % (packet['ip'].src, last_oct))
+        log.msg("src ip: %s dst ip: " % (packet['ip'].src, packet['ip'].dst))
         if config.is_green(last_oct):
             self.addUser()
         elif config.is_red(last_oct):
