@@ -24,7 +24,7 @@ function teamGraph(team_num) {
 
       },
       axisY: {
-        maximum: 1100,
+        maximum: 5100,
         tickLength: 0,
         lineThickness: 0,
         labelFontSize: 1,
@@ -66,10 +66,10 @@ function updateGraph(team_num) {
 
 function exploder(team_num, attacker) {
   var divid = "#td"+team_num+" .explode";
-  if (parseInt(attacker) > 900) {
+  if (parseInt(attacker) > 4500) {
     console.log("exploding team "+team_num+" at "+attacker+" via "+divid);
     $(divid).show();
-  } else if (parseInt(attacker) <= 900) {
+  } else if (parseInt(attacker) <= 4500) {
     $(divid).hide();
   }
 }

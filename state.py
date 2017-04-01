@@ -54,8 +54,9 @@ class State(object):
         self.defenders.append(False)
         self.users.append(False)
 
+
     def addFileAttack(self):
-        if len(self.attackers) > self.num_packets:
+        if len(self.fileattack) > self.num_packets:
             self.popAll()
         self.fileattack.append(True)
         self.adattack.append(False)
@@ -65,7 +66,7 @@ class State(object):
         self.esxi.append(False)
 
     def addADAttack(self):
-        if len(self.attackers) > self.num_packets:
+        if len(self.fileattack) > self.num_packets:
             self.popAll()
         self.fileattack.append(False)
         self.adattack.append(True)
@@ -75,7 +76,7 @@ class State(object):
         self.esxi.append(False)
 
     def addHMIAttack(self):
-        if len(self.attackers) > self.num_packets:
+        if len(self.fileattack) > self.num_packets:
             self.popAll()
         self.fileattack.append(False)
         self.adattack.append(False)
@@ -85,7 +86,7 @@ class State(object):
         self.esxi.append(False)
 
     def addMailAttack(self):
-        if len(self.attackers) > self.num_packets:
+        if len(self.fileattack) > self.num_packets:
             self.popAll()
         self.fileattack.append(False)
         self.adattack.append(False)
@@ -95,7 +96,7 @@ class State(object):
         self.esxi.append(False)
 
     def addWebAttack(self):
-        if len(self.attackers) > self.num_packets:
+        if len(self.fileattack) > self.num_packets:
             self.popAll()
         self.fileattack.append(False)
         self.adattack.append(False)
@@ -105,7 +106,7 @@ class State(object):
         self.esxi.append(False)
 
     def addEsxiAttack(self):
-        if len(self.attackers) > self.num_packets:
+        if len(self.fileattack) > self.num_packets:
             self.popAll()
         self.fileattack.append(False)
         self.adattack.append(False)
@@ -115,14 +116,14 @@ class State(object):
         self.esxi.append(True)
 
     def addUser(self):
-        if len(self.attackers) > self.num_packets:
+        if len(self.fileattack) > self.num_packets:
             self.popAll()
         self.attackers.append(False)
         self.defenders.append(False)
         self.users.append(True)
 
     def addDefend(self):
-        if len(self.attackers) > self.num_packets:
+        if len(self.fileattack) > self.num_packets:
             self.popAll()
         self.attackers.append(False)
         self.defenders.append(True)
