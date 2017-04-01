@@ -32,7 +32,7 @@ class Teams(object):
     def slotPacket(self, packet):
         for team in self.teams:
             #log.msg("type: %s contains: %s" % (type(packet["ip"].dst), packet["ip"].dst))
-            if team.contains(packet["ip"].dst):
+            if (team.contains(packet["ip"].dst)):
                 team.state.addPacket(packet)
                 #return True
 
