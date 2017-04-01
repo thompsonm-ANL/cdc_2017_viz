@@ -26,13 +26,19 @@ class State(object):
         dest_ip = packet['ip'].dst
         last_dest = dest_ip.split(".")[3]
         last_oct = int(packet['ip'].src.split(".")[3])
-        log.msg("ADDED src ip: %s dst ip: %s" % (packet['ip'].src, packet['ip'].dst))
         if config.is_green(last_oct):
             self.addUser()
+            log.msg("USER ADDED src ip: %s dst ip: %s" % (packet['ip'].src, packet['ip'].dst))
+
         elif config.is_red(last_oct):
+
             self.addAttack()
+            log.msg("ATTACKER ADDED src ip: %s dst ip: %s" % (packet['ip'].src, packet['ip'].dst))
+
         else:
             self.addDefend()
+            log.msg("DEFENDER ADDED src ip: %s dst ip: %s" % (packet['ip'].src, packet['ip'].dst))
+
         for description, last in config.blue.items():
             if description == "File Server" and last == last_dest:
                 self.addFileAttack()
