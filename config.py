@@ -4,6 +4,8 @@ prefix = "10.10.20."
 red_range = []
 for i in range(23, 33):
     red_range.append(i)
+for i in range(190, 201):
+    red_range.append(i)
 for i in range(216, 255):
     red_range.append(i)
 

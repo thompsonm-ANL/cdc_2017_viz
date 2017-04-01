@@ -6,12 +6,15 @@ for(col=0x0;col<=0xFFFFFF;col++) {
 }
 setTimeout( function() {
     id();
-}, 4000);
+}, 2000);
 
 setInterval(function() {
   updateLinks();
+}, 3000);
+
+setInterval(function() {
   updateSmallLinks();
-}, 6000);
+}, 7000);
 
 function id() {
     window.l = new Map();
