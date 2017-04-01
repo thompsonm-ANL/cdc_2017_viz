@@ -31,13 +31,9 @@ class Teams(object):
     def slotPacket(self, packet):
         for team in self.teams:
             #log.msg("type: %s contains: %s" % (type(packet["ip"].dst), packet["ip"].dst))
-            try:
-                if team.contains(packet["ip"].dst):
-                    team.state.addPacket(packet)
-                    return True
-
-            except:
-                pass
+            if team.contains(packet["ip"].dst):
+                team.state.addPacket(packet)
+                return True
 
     def dump(self):
         l = []
