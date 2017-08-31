@@ -10,6 +10,7 @@ from twisted.internet import reactor
 from twisted.web.resource import Resource
 from twisted.web import static, server, twcgi
 import teams
+import nodes
 import config
 import csv
 import json
@@ -17,24 +18,38 @@ import networkx as nx
 
 log.startLogging(sys.stdout)
 
-ts = teams.Teams()
-for t in config.cdc:
-    team = teams.Team(t["num"], config.getNetwork(t["num"]), t["name"])
-    ts.addTeam(team)
+hosts = nodes.Hosts()
+#for t in config.cdc:
+#    team = teams.Team(t["num"], config.getNetwork(t["num"]), t["name"])
+#    ts.addTeam(team)
 
 class SnifferService(TsharkService):
+ 
     def packetReceived(self, packet):
         """Override the TsharkService method"""
         try:
-          log.msg("src ip: %s dst ip: %s" % (packet['ip'].src, packet['ip'].dst))
-          ts.slotPacket(packet)
+          sip = packet['ip'].src
+          smac = packet['mac'].src
+          dip = packet['ip'].dst
+          dmac = packet['mac'].dst
+          
+          log.msg("src ip: %s dst ip: %s" % (sip, dip))
+          if not hosts.get_host_by_mac(smac): 
+            nodes.create_and_add_host(hosts, sip, smac)
+          if not hosts.get_host_by_ip(sip):
+            dnode = nodes.create_and_add_host(hosts, dip, dmac)
+          dnode.add_packet(packet)
         except:
             pass
+
+    def errReceived(self, data):
+      print("errReceived! with %d bytes!" % len(data))
 
 class Data(Resource):
     isLeaf = True
     def render_GET(self, request):
-        return json.dumps(ts.dump())
+        stats = hosts.stats() 
+        return json.dumps({ "nodes": stats[0], "links": stats[1]})
 
 class Lines(Resource):
     isLeaf = True
@@ -85,9 +100,9 @@ def main():
     print("listening on %s" % iface)
     root = static.File("./")
     root.putChild("data", Data())
-    root.putChild("lines", Lines())
-    root.putChild("nodes", Nodes())
-    service = SnifferService([{"name" : iface, "filter": "dst net 10.0.0.0/8"}])
+#   root.putChild("lines", Lines())
+#   root.putChild("nodes", Nodes())
+    service = SnifferService([{"name" : iface, "filter": "port not 53 and not arp" }])
     reactor.listenTCP(80, server.Site(root))
     service.startService()
     reactor.run()
